@@ -1,0 +1,7 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+//-----------------------------------------------------------------------
+// <copyright file="%Filename%" company="BlueFox">
+// Copyright (c) BlueFox. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
