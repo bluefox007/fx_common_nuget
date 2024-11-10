@@ -45,5 +45,5 @@ jobs:
         
       - name: Publish
         #if: startsWith(github.ref, 'refs/heads/main')
-        run: nuget push **\*.nupkg -Source '$FEED_URL' -ApiKey $TOKEN
+        run: nuget push **\*.nupkg -Source $FEED_URL -ApiKey $TOKEN
   
