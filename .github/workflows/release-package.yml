@@ -23,7 +23,7 @@ jobs:
         with:
           source-url: https://nuget.pkg.github.com/bluefox/index.json
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.FEED_SECRET}}        
+          NUGET_AUTH_TOKEN: ${{secrets.NUGET_AUTH_TOKEN}}        
           
       - name: Build solution and generate NuGet package
         run: |  
