@@ -40,10 +40,16 @@ jobs:
       - name: Build
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
     
+      - name: Pack solution
+        run: |  
+          cd .
+          dotnet pack -c $BUILD_CONFIG -o out  
+
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
         
-      - name: Publish
-        #if: startsWith(github.ref, 'refs/heads/main')
-        run: nuget push **\*.nupkg -Source $FEED_URL -ApiKey $TOKEN
+      - name: Push package
+        # if: startsWith(github.ref, 'refs/heads/main')
+        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -Source $FEED_URL -ApiKey $TOKEN
+
   
