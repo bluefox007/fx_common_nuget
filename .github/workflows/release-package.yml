@@ -50,5 +50,5 @@ jobs:
         
       - name: Push package
         # if: startsWith(github.ref, 'refs/heads/main')
-        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -s {{env.$FEED_URL}} -k {{env.$TOKEN}}
+        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -s https://nuget.pkg.github.com/bluefox/index.json -k ${{secrets.GITHUB_TOKEN}}
 
