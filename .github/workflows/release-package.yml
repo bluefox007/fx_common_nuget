@@ -46,12 +46,12 @@ jobs:
       - name: Pack solution
         run: |  
           cd .
-          dotnet pack -p:Version=8.0.${{ github.run_number }} -c $BUILD_CONFIG -o out  
+          nuget pack .\Package.nuspec -Properties Configuration=$BUILD_CONFIG -Version 8.0.${{ github.run_number }}
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
         
       - name: Push package
         # if: startsWith(github.ref, 'refs/heads/main')
-        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -s $FEED_URL -k $TOKEN
+        run: dotnet nuget push *.nupkg --skip-duplicate --no-symbols true -s $FEED_URL -k $TOKEN
 
