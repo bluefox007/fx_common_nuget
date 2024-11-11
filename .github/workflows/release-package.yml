@@ -18,7 +18,7 @@ jobs:
     env:
       BUILD_CONFIG: 'Release'
       SOLUTION: "BlueFox.Fx.Common.Nuget.sln"
-      FEED_URL: "https://nuget.pkg.github.com/bluefox/index.json"
+      FEED_URL: "https://nuget.pkg.github.com/bluefox007/index.json"
       TOKEN: ${{secrets.GITHUB_TOKEN}} 
 
     runs-on: ubuntu-latest
