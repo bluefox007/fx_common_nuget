@@ -53,5 +53,5 @@ jobs:
         
       - name: Push package
         # if: startsWith(github.ref, 'refs/heads/main')
-        run: dotnet nuget push *.nupkg --skip-duplicate --no-symbols true -s $FEED_URL -k $TOKEN
+        run: dotnet nuget push *.nupkg --skip-duplicate -s $FEED_URL -k $TOKEN
 
