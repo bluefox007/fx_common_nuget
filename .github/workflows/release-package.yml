@@ -16,7 +16,7 @@ jobs:
       BUILD_CONFIG: 'Release'
       SOLUTION: 'BlueFox.Fx.Common.Nuget.sln'
       FEED_URL: 'https://nuget.pkg.github.com/bluefox/index.json'
-      TOKEN: ${{secrets.NUGET_AUTH_TOKEN}} 
+      TOKEN: ${{secrets.GITHUB_TOKEN}} 
 
     runs-on: ubuntu-latest
 
@@ -52,4 +52,4 @@ jobs:
         # if: startsWith(github.ref, 'refs/heads/main')
         run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -s $FEED_URL -k $TOKEN
 
-  
+
