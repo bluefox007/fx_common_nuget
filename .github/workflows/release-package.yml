@@ -1,8 +1,5 @@
 name: Build Fx Comon Nuget
 
-permissions:
-  packages: write
-
 on:
   push:
     branches:
@@ -54,6 +51,6 @@ jobs:
         
       - name: Push package
         # if: startsWith(github.ref, 'refs/heads/main')
-        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true
+        run: dotnet nuget push ./out/*.nupkg --skip-duplicate --no-symbols true -k ${{secrets.GITHUB_TOKEN}} -s https://nuget.pkg.github.com/bluefox/index.json
 
 
