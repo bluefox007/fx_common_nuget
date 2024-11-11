@@ -46,7 +46,7 @@ jobs:
       - name: Pack solution
         run: |  
           cd .
-          nuget pack .\Package.nuspec -Properties Configuration=$BUILD_CONFIG -Version 8.0.${{ github.run_number }}
+          nuget pack Package.nuspec -Properties Configuration=$BUILD_CONFIG -Version 8.0.${{ github.run_number }}
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
