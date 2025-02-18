@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlueFox.Fx;
+namespace BlueFox.Fx.Common.Business.Caching;
 
 using System;
 using System.Collections.Generic;
@@ -64,9 +64,9 @@ public class Cache
     {
         get
         {
-            if (this.ExpirationDate.HasValue)
+            if (ExpirationDate.HasValue)
             {
-                if (this.ExpirationDate <= DateTime.UtcNow)
+                if (ExpirationDate <= DateTime.UtcNow)
                 {
                     return true;
                 }

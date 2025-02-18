@@ -6,16 +6,16 @@
 
 namespace BlueFox.Fx;
 
-using System.Reflection;
 using Azure.Core;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using BlueFox.Fx.Common.Business.Caching;
 
 public static class KeyVaultHelper
 {
     private static SecretClient client;
 
-    public static void SetKeyVaultUri(string keyVaultUri, string environment)
+    public static void SetKeyVaultUri(string keyVaultUri, string environment, double? cacheTtl = 30)
     {
         if (client is null)
         {
@@ -29,6 +29,11 @@ public static class KeyVaultHelper
                           Mode = RetryMode.Exponential,
                         },
             };
+
+            if (cacheTtl != null)
+            {
+                options.AddPolicy(new KeyVaultProxy(TimeSpan.FromSeconds((double)cacheTtl)), HttpPipelinePosition.PerCall);
+            }
 
             client = new SecretClient(
                 new Uri(keyVaultUri),

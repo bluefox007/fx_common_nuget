@@ -4,7 +4,7 @@
 // </copyright>
 //-----------------------------------------------------------------------
 
-namespace BlueFox.Fx;
+namespace BlueFox.Fx.Common.Business.Caching;
 
 public static class CacheStore
 {
