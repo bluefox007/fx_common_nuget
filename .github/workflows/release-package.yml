@@ -21,7 +21,7 @@ jobs:
       FEED_URL: "https://nuget.pkg.github.com/bluefox/index.json"
       TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     name: Build and publish nuget
 
