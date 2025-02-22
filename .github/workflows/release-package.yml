@@ -49,17 +49,13 @@ jobs:
           chmod +x nuget.exe  # Make it executable (though not strictly needed for mono)
         shell: bash
 
-      - name: Install Mono (for nuget.exe on Linux)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mono-complete
+      # - name: Install Mono (for nuget.exe on Linux)
+      #   run: |
+      #     sudo apt-get update
+      #     sudo apt-get install -y mono-complete
       
       - name: Pack Nuget
-        run: |
-          ./nuget.exe pack ./src/Package.nuspec `
-          -BasePath ./src `
-          -OutputDirectory ./ `
-          -Version 8.0.${{ github.run_number }}
+        run: ./nuget.exe pack ./src/Package.nuspec -BasePath ./src -OutputDirectory ./ -Version 8.0.${{ github.run_number }}
 
       # - name: Pack solution
       #   run: |
