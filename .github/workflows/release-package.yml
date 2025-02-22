@@ -41,7 +41,7 @@ jobs:
           dotnet-version: 8.x
 
       - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build ./src/$SOLUTION --configuration $BUILD_CONFIG --no-restore
     
       - name: Pack solution
         run: |
