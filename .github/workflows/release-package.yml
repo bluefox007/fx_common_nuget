@@ -48,7 +48,7 @@ jobs:
           dotnet pack $SOLUTION \
             -c $BUILD_CONFIG \
             -p:NuspecFile=./Package.nuspec \
-            -p:NuspecBasePath=./.. \
+            -p:NuspecBasePath=./fx_common_nuget \
             -p:Version=8.0.${{ github.run_number }} \
             --output .
 
