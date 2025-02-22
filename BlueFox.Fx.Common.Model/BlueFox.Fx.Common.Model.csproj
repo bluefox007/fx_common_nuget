@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
 		<Copyright>Copyright © BlueFox. All rights reserved.</Copyright>
+		<IsPackable>true</IsPackable>
 		<CodeAnalysisRuleSet>Ruleset.ruleset</CodeAnalysisRuleSet>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>

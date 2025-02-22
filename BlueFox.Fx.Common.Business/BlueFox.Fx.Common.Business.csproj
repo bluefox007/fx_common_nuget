@@ -4,7 +4,7 @@
 		<TargetFrameworks>netstandard2.1;net8.0</TargetFrameworks>
 		<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 		<NuspecFile>Package.nuspec</NuspecFile>
-		<NuspecFile>Package.nuspec</NuspecFile>
+		<IsPackable>true</IsPackable>
 		<Copyright>Copyright © BlueFox. All rights reserved.</Copyright>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
 		<CodeAnalysisRuleSet>Ruleset.ruleset</CodeAnalysisRuleSet>
