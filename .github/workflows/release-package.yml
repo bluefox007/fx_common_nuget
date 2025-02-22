@@ -41,10 +41,10 @@ jobs:
           dotnet-version: 8.x
 
       - name: Build
-        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
+        run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore --no-build
     
       - name: Pack solution
-        run: dotnet pack --configuration $BUILD_CONFIG --output ./ /p:Version=8.0.${{ github.run_number }} /p:NuspecFile=Package.nuspec /p:NuspecBasePath=./home/runner/work/
+        run: dotnet pack --configuration $BUILD_CONFIG --no-build --output ./ /p:Version=8.0.${{ github.run_number }} /p:NuspecFile=Package.nuspec
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
