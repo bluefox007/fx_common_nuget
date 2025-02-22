@@ -45,7 +45,7 @@ jobs:
     
       - name: Pack solution
         run: |
-          dotnet pack $SOLUTION \
+          dotnet pack ./src/$SOLUTION \
             -c $BUILD_CONFIG \
             -p:NuspecFile=./src/Package.nuspec \
             -p:NuspecBasePath=./src \
