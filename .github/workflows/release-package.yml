@@ -17,7 +17,7 @@ jobs:
     
     env:
       BUILD_CONFIG: 'Release'
-      SOLUTION: "BlueFox.Fx.Common.Business.csproj"
+      SOLUTION: "BlueFox.Fx.Common.Business.sln"
       FEED_URL: "https://nuget.pkg.github.com/bluefox007/index.json"
       TOKEN: ${{ secrets.GITHUB_TOKEN }} 
 
@@ -47,8 +47,8 @@ jobs:
         run: |
           dotnet pack $SOLUTION \
             -c $BUILD_CONFIG \
-            -p:NuspecFile=./Package.nuspec \
-            -p:NuspecBasePath=./fx_common_nuget \
+            -p:NuspecFile=./src/Package.nuspec \
+            -p:NuspecBasePath=./src \
             -p:Version=8.0.${{ github.run_number }} \
             --output .
 
