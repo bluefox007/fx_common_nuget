@@ -6,68 +6,57 @@
 
 namespace BlueFox.Fx;
 
-using Azure.Core;
+using System;
+using System.Collections.Generic;
 using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
-using BlueFox.Fx.Common.Business.Caching;
 
-public static class KeyVaultHelper
+public class KeyVaultHelper : IKeyVaultHelper
 {
-    private static SecretClient client;
+    private static Dictionary<string, KeyVaultCache> cache = new Dictionary<string, KeyVaultCache>();
 
-    public static void SetKeyVaultUri(string keyVaultUri, string environment, double? cacheTtl = 30)
+    private SecretClient? client;
+
+    public void SetKeyvaultConnection(DefaultAzureCredential credentials, SecretClientOptions options, string connectionString)
     {
-        if (client is null)
-        {
-            SecretClientOptions options = new SecretClientOptions()
-            {
-                Retry =
-                        {
-                          Delay = TimeSpan.FromSeconds(2),
-                          MaxDelay = TimeSpan.FromSeconds(16),
-                          MaxRetries = 5,
-                          Mode = RetryMode.Exponential,
-                        },
-            };
+        this.client = new SecretClient(
+                                        new Uri(connectionString),
+                                        credentials,
+                                        options);
+    }
 
-            if (cacheTtl != null)
+    public string GetSecret(string secretName, double ttl = 30)
+    {
+        string secret;
+
+        if (cache.ContainsKey(secretName))
+        {
+            // Key is in the cache
+            cache.TryGetValue(secretName, out KeyVaultCache cachedValue);
+
+            if (cachedValue?.EndDate < DateTime.Now)
             {
-                options.AddPolicy(new KeyVaultProxy(TimeSpan.FromSeconds((double)cacheTtl)), HttpPipelinePosition.PerCall);
+                // Key is expired
+                cache.Remove(secretName);
+
+                secret = this.client.GetSecret(secretName).Value.Value;
+
+                cache.Add(secretName, new KeyVaultCache(secret, ttl));
             }
-
-            client = new SecretClient(
-                new Uri(keyVaultUri),
-                new DefaultAzureCredential(
-                new DefaultAzureCredentialOptions()
-                //{
-                //    ExcludeEnvironmentCredential = true,
-                //    ExcludeInteractiveBrowserCredential = true,
-                //    ExcludeAzurePowerShellCredential = true,
-                //    ExcludeSharedTokenCacheCredential = true,
-                //    ExcludeVisualStudioCodeCredential = true,
-                //    ExcludeVisualStudioCredential = true,
-                //    ExcludeAzureCliCredential = !environment.Equals("development", StringComparison.OrdinalIgnoreCase),
-                //    ExcludeManagedIdentityCredential = environment.Equals("development", StringComparison.OrdinalIgnoreCase),
-                //}
-                ), options);
+            else
+            {
+                // Key is not expired yet
+                secret = cachedValue!.Value;
+            }
         }
-    }
-
-    public static void SetSecret(string internalKey, string secretKey, int? cachingTimeInSeconds)
-    {
-        CachingHelper.AddCache(
-                            internalKey,
-                            cachingTimeInSeconds != null ? DateTime.UtcNow.AddSeconds((double)cachingTimeInSeconds) : null,
-                            GetSecret(secretKey));
-    }
-
-    public static string GetSecret(string key)
-    {
-        if (client is null)
+        else
         {
-            throw new NullReferenceException("Key vault is not set");
+            // Key is not in the cache
+            secret = this.client.GetSecret(secretName).Value.Value;
+
+            cache.Add(secretName, new KeyVaultCache(secret, ttl));
         }
 
-        return client.GetSecret(key).Value.Value;
+        return secret;
     }
 }

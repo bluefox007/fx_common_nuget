@@ -1,6 +1,6 @@
 ﻿//-----------------------------------------------------------------------
-// <copyright file="EmailValidator.cs" company="Sam Muylaert">
-//     Copyright (c) Sam Muylaert. All rights reserved.
+// <copyright file="EmailValidator.cs" company="BlueFox">
+// Copyright (c) BlueFox. All rights reserved.
 // </copyright>
 //-----------------------------------------------------------------------
 
