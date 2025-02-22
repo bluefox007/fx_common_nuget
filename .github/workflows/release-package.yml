@@ -44,7 +44,7 @@ jobs:
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
     
       - name: Pack solution
-        run: dotnet pack --configuration $BUILD_CONFIG --no-build --output ./ /p:Version=8.0.${{ github.run_number }} /p:NuspecFile=Package.nuspec
+        run: dotnet pack --no-build --output ./ /p:Version=8.0.${{ github.run_number }} /p:NuspecFile=Package.nuspec
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
