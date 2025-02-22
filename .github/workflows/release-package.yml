@@ -45,8 +45,14 @@ jobs:
     
       - name: Install NuGet CLI
         run: |
-          Invoke-WebRequest -Uri "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" -OutFile "nuget.exe"
-          Write-Output "$PWD" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          curl -L -o nuget.exe https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+          chmod +x nuget.exe  # Make it executable (though not strictly needed for mono)
+        shell: bash
+
+      - name: Install Mono (for nuget.exe on Linux)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y mono-complete
       
       - name: Pack Nuget
         run: |
