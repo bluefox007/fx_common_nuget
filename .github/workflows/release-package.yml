@@ -47,8 +47,8 @@ jobs:
         run: |
           dotnet pack $SOLUTION \
             -c $BUILD_CONFIG \
-            -p:NuspecFile=./Nuget/Package.nuspec \
-            -p:NuspecBasePath=./Nuget \
+            -p:NuspecFile=./Package.nuspec \
+            -p:NuspecBasePath=./.. \
             -p:Version=8.0.${{ github.run_number }} \
             --output .
 
