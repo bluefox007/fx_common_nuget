@@ -29,9 +29,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v1
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
-
       - name: List nuget sources
         run: dotnet nuget list source
 
@@ -47,9 +44,7 @@ jobs:
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
     
       - name: Pack solution
-        run: |  
-          cd .
-          nuget pack Package.nuspec -Properties Configuration=$BUILD_CONFIG -Version 8.0.${{ github.run_number }}
+        run: dotnet pack $SOLUTION --configuration $BUILD_CONFIG --no-build --no-restore --output ./ /p:Version=8.0.${{ github.run_number }}
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
