@@ -44,7 +44,7 @@ jobs:
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
     
       - name: Pack solution
-        run: dotnet pack --configuration /p:Version=8.0.${{ github.run_number }}
+        run: dotnet pack --configuration $BUILD_CONFIG  /p:Version=8.0.${{ github.run_number }}
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
