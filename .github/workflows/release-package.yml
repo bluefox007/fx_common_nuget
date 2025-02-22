@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: List nuget sources
         run: dotnet nuget list source
@@ -36,7 +36,7 @@ jobs:
         run: dotnet restore $SOLUTION --no-cache
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.x
 
@@ -44,7 +44,8 @@ jobs:
         run: dotnet build $SOLUTION --configuration $BUILD_CONFIG --no-restore
     
       - name: Pack solution
-        run: dotnet pack $SOLUTION -p:NuspecFile=.\Package.nuspec -p:NuspecBasePath=.\ --configuration $BUILD_CONFIG --no-restore --output ./ /p:Version=8.0.${{ github.run_number }}
+        run: dotnet pack $SOLUTION --configuration $BUILD_CONFIG --no-build --output ./ /p:Version=8.0.${{ github.run_number }} /p:NuspecFile=Package.nuspec
+        #run: dotnet pack $SOLUTION -p:NuspecFile=.\Package.nuspec -p:NuspecBasePath=.\ --configuration $BUILD_CONFIG --no-restore --output ./ /p:Version=8.0.${{ github.run_number }}
 
       # - name: Run tests
       #   run: dotnet test /p:Configuration=$env:BUILD_CONFIG --no-restore --no-build --verbosity normal
